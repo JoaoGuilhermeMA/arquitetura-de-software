@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Processador de Texto - Pipe e Filtros</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 400px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .result {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #333;
+      }
+
+      .result p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Processador de Texto - Pipe e Filtros</h1>
+      <!-- Camada de Apresentação: Área de texto para inserção do conteúdo -->
+      <textarea id="inputTexto" placeholder="Digite o texto aqui..."></textarea>
+      <button onclick="processarTexto()">Processar Texto</button>
+
+      <div id="resultado" class="result"></div>
+    </div>
+
+    <script>
+      // Função principal que aplica os filtros em sequência
+      function processarTexto() {
+        // Obter o texto do usuário
+        let texto = document.getElementById("inputTexto").value;
+
+        // Aplicar os filtros em sequência (Pipe e Filtros)
+        texto = aplicarFiltroMaiusculas(texto);
+        texto = removerEspacosExtras(texto);
+        const contagemPalavras = contarPalavras(texto);
+
+        // Exibir o resultado após todos os filtros
+        exibirResultado(texto, contagemPalavras);
+      }
+
+      // Filtro 1: Converter o texto para letras maiúsculas
+      function aplicarFiltroMaiusculas(texto) {
+        return texto.toUpperCase();
+      }
+
+      // Filtro 2: Remover espaços extras (espaços no início, no fim e múltiplos espaços)
+      function removerEspacosExtras(texto) {
+        return texto.trim().replace(/\s+/g, " ");
+      }
+
+      // Filtro 3: Contar o número de palavras no texto
+      function contarPalavras(texto) {
+        if (texto === "") return 0;
+        return texto.split(" ").length;
+      }
+
+      // Função para exibir o resultado na tela
+      function exibirResultado(textoProcessado, contagemPalavras) {
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.innerHTML = `
+                <p><strong>Texto processado:</strong> ${textoProcessado}</p>
+                <p><strong>Número de palavras:</strong> ${contagemPalavras}</p>
+            `;
+      }
+    </script>
+  </body>
+</html>
